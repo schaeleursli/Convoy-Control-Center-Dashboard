@@ -1,6 +1,18 @@
 import React, { useState } from 'react';
 import { ActivityIcon, CameraIcon, FileTextIcon, MapPinIcon, AlertTriangleIcon, UserIcon, ClockIcon } from 'lucide-react';
+import ReportViewModal from './modals/ReportViewModal';
 const ActivityFeed: React.FC = () => {
+  const [showReportModal, setShowReportModal] = useState(false);
+  const [selectedReport, setSelectedReport] = useState({
+    id: 'RPT-2023-0123',
+    convoy: 'CNV-2023-0454',
+    driver: 'Michael Chen',
+    timestamp: '15 min ago',
+    location: 'Fort Worth, TX',
+    status: 'Pending Approval',
+    details: 'Daily inspection completed.\n\nAll systems operational.\nFuel level: 75%\nTire pressure: Normal\nBrake system: Optimal\nCargo secure and properly distributed.\n\nNo issues to report.',
+    images: ['https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80', 'https://images.unsplash.com/photo-1616432043562-3671ea2e5242?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80']
+  });
   const [activeFilter, setActiveFilter] = useState('all');
   // Mock activity data
   const activities = [{
@@ -55,6 +67,9 @@ const ActivityFeed: React.FC = () => {
       default:
         return <ActivityIcon className="w-4 h-4 text-gray-400" />;
     }
+  };
+  const handleViewReport = () => {
+    setShowReportModal(true);
   };
   return <section className="h-full">
       <div className="flex justify-between items-center mb-5">
@@ -120,7 +135,7 @@ const ActivityFeed: React.FC = () => {
                       </button>
                     </div>}
                   {activity.type === 'report' && <div className="mt-2 flex justify-end">
-                      <button className="bg-[#1e293b] hover:bg-[#334155] text-white px-3 py-1 rounded text-xs font-medium transition-colors mr-2">
+                      <button onClick={handleViewReport} className="bg-[#1e293b] hover:bg-[#334155] text-white px-3 py-1 rounded text-xs font-medium transition-colors mr-2">
                         View Report
                       </button>
                       <button className="bg-[#10b981] hover:bg-[#059669] text-white px-3 py-1 rounded text-xs font-medium transition-colors">
@@ -132,6 +147,7 @@ const ActivityFeed: React.FC = () => {
             </div>)}
         </div>
       </div>
+      <ReportViewModal isOpen={showReportModal} onClose={() => setShowReportModal(false)} reportData={selectedReport} />
     </section>;
 };
 export default ActivityFeed;

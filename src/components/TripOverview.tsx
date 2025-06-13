@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MapPinIcon, UserIcon, ZapIcon, CameraIcon, FileTextIcon, ClockIcon, PlusCircleIcon } from 'lucide-react';
+import NewConvoyModal from './modals/NewConvoyModal';
 const TripOverview: React.FC = () => {
+  const [showNewConvoyModal, setShowNewConvoyModal] = useState(false);
   // Mock data for active convoys
   const convoys = [{
     id: 'CNV-2023-0456',
@@ -66,7 +68,7 @@ const TripOverview: React.FC = () => {
             Monitor live convoy operations
           </p>
         </div>
-        <button className="bg-gradient-to-r from-[#ff8200] to-[#cc6600] text-white px-4 py-2 rounded-lg shadow-lg shadow-orange-500/30 hover:translate-y-[-1px] hover:shadow-xl hover:shadow-orange-500/40 active:translate-y-0 transition-all flex items-center">
+        <button onClick={() => setShowNewConvoyModal(true)} className="bg-gradient-to-r from-[#ff8200] to-[#cc6600] text-white px-4 py-2 rounded-lg shadow-lg shadow-orange-500/30 hover:translate-y-[-1px] hover:shadow-xl hover:shadow-orange-500/40 active:translate-y-0 transition-all flex items-center">
           <PlusCircleIcon className="w-4 h-4 mr-2" /> New Convoy
         </button>
       </div>
@@ -128,6 +130,7 @@ const TripOverview: React.FC = () => {
             </div>
           </div>)}
       </div>
+      <NewConvoyModal isOpen={showNewConvoyModal} onClose={() => setShowNewConvoyModal(false)} />
     </section>;
 };
 export default TripOverview;
