@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MapPinIcon, UserIcon, ZapIcon, CameraIcon, FileTextIcon, ClockIcon, PlusCircleIcon } from 'lucide-react';
 import NewConvoyModal from './modals/NewConvoyModal';
+import ConvoyBuilder from './convoy-builder';
 const TripOverview: React.FC = () => {
   const [showNewConvoyModal, setShowNewConvoyModal] = useState(false);
   // Mock data for active convoys
@@ -130,7 +131,7 @@ const TripOverview: React.FC = () => {
             </div>
           </div>)}
       </div>
-      <NewConvoyModal isOpen={showNewConvoyModal} onClose={() => setShowNewConvoyModal(false)} />
+      <ConvoyBuilder isOpen={showNewConvoyModal} onClose={() => setShowNewConvoyModal(false)} />
     </section>;
 };
 export default TripOverview;
